@@ -4,7 +4,7 @@ A Captcha Library that Imitation from thinkphp Captcha developed for swoft.
 
 ## Usage
 
-Build a captcha in controller
+### Build a captcha in controller
 ```php
 /**
  * @RequestMapping("/")
@@ -17,7 +17,11 @@ public function index(Response $response): Response
 }
 ```
 
-Check if the captcha code is correct
+### Sample image
+![image](assets/demo/captcha_img.png)
+
+
+### Check if the captcha code is correct
 ```PHP
 $captcha = new Captcha();
 
