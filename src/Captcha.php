@@ -6,8 +6,10 @@
  * Time: 8:15 PM
  */
 
-namespace think\captcha;
-use think\facade\Session;
+namespace CarpCai\Captcha;
+
+use Swoft\Http\Message\Server\Response;
+
 class Captcha
 {
     protected $config = [
@@ -120,7 +122,7 @@ class Captcha
      * @param string $id 要生成验证码的标识
      * @return \think\Response
      */
-    public function entry($id = '')
+    public function entry(Response $response, $id = '')
     {
         // 图片宽(px)
         $this->imageW || $this->imageW = $this->length * $this->fontSize * 1.5 + $this->length * $this->fontSize / 2;
@@ -185,11 +187,8 @@ class Captcha
         imagepng($this->im);
         $content = ob_get_clean();
         imagedestroy($this->im);
-//        return response($content, 200, ['Content-Length' => strlen($content)])->contentType('image/png');
-        header('Content-type:image/png');
-        echo $content;
-        return $content;
 
+        return $response->withHeader('Content-type', 'image/png')->raw($content);
     }
     /**
      * 画一条由两条连在一起构成的随机正弦函数曲线作干扰线(你可以改成更帅的曲线函数)
